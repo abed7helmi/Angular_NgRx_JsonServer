@@ -30,11 +30,25 @@ export class ProductsComponent implements OnInit {
   }
 
   onGetSelectedProducts() {
+    this.products$= this.productsService.getSelectedProducts().pipe(
+      map(data=>{
 
+        return ({dataState:DataStateEnum.LOADED,data:data})
+      }),
+      startWith({dataState:DataStateEnum.LOADING}),
+      catchError(err=>of({dataState:DataStateEnum.ERROR, errorMessage:err.message}))
+    );
   }
 
   onGetAvailableProducts() {
+    this.products$= this.productsService.getAvailableProducts().pipe(
+      map(data=>{
 
+        return ({dataState:DataStateEnum.LOADED,data:data})
+      }),
+      startWith({dataState:DataStateEnum.LOADING}),
+      catchError(err=>of({dataState:DataStateEnum.ERROR, errorMessage:err.message}))
+    );
   }
 
   onNewProduct() {
@@ -53,5 +67,16 @@ export class ProductsComponent implements OnInit {
 
   onEdit(p: Product) {
 
+  }
+
+  onSearch(dataForm: any) {
+    this.products$= this.productsService.searchProducts(dataForm.keyword).pipe(
+      map(data=>{
+        console.log(data);
+        return ({dataState:DataStateEnum.LOADED,data:data})
+      }),
+      startWith({dataState:DataStateEnum.LOADING}),
+      catchError(err=>of({dataState:DataStateEnum.ERROR, errorMessage:err.message}))
+    );
   }
 }

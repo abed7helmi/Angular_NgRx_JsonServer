@@ -19,14 +19,18 @@ export class ProductsService{
   getSelectedProducts() : Observable<Product[]>{
 
     let host = environment.host
-    return this.http.get<Product[]>(host+"products?selected=true")
+    return this.http.get<Product[]>("http://localhost:3000/products?selected=true")
   }
 
 
   getAvailableProducts() : Observable<Product[]>{
 
     let host = environment.host
-    return this.http.get<Product[]>(host+"products?available=true")
+    return this.http.get<Product[]>("http://localhost:3000/products?available=true")
   }
 
+  searchProducts(keyword:string):Observable<Product[]>{
+    let host=environment.host;
+    return this.http.get<Product[]>(host+"/products?name_like="+keyword);
+  }
 }
