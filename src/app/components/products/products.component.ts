@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {ProductsService} from "../../services/products.service";
 import {Product} from "../../model/product.model";
+import {catchError, map, Observable, of, startWith} from "rxjs";
+import {AppDataState, DataStateEnum} from "../state/product.state";
 
 @Component({
   selector: 'app-products',
@@ -9,7 +11,7 @@ import {Product} from "../../model/product.model";
 })
 export class ProductsComponent implements OnInit {
 
-  products : Product[] | null =null
+  products$ : Observable<AppDataState<Product[]>> | null = null
 
   constructor(private productsService : ProductsService) { }
 
@@ -17,19 +19,14 @@ export class ProductsComponent implements OnInit {
   }
 
   onGetAllProducts() {
-    /*this.products$= this.productsService.getAllProducts().pipe(
-      map(data=>{
-        console.log(data);
-        return ({dataState:DataStateEnum.LOADED,data:data})
-      }),
-      startWith({dataState:DataStateEnum.LOADING}),
-      catchError(err=>of({dataState:DataStateEnum.ERROR, errorMessage:err.message}))
-    );*/
-    this.productsService.getAllProducts().subscribe(
-      data =>{
-        this.products=data
-      }
-    )
+    this.products$= this.productsService.getAllProducts().pipe(
+      map(data=> // map qsq je retourne qd je recoit la reponse
+        ({dataState:DataStateEnum.LOADED,data:data})
+      ),
+      startWith({dataState:DataStateEnum.LOADING}), // avant que la reqt soit meme envoyé
+      catchError(err=>of({dataState:DataStateEnum.ERROR, errorMessage:err.message})) // l'error
+    );
+    //this.products$= this.productsService.getAllProducts();
   }
 
   onGetSelectedProducts() {
@@ -41,6 +38,20 @@ export class ProductsComponent implements OnInit {
   }
 
   onNewProduct() {
+
+  }
+
+  protected readonly DataStateEnum = DataStateEnum;
+
+  onSelect(p: Product) {
+
+  }
+
+  onDelete(p: Product) {
+
+  }
+
+  onEdit(p: Product) {
 
   }
 }
