@@ -3,6 +3,7 @@ import {ProductsService} from "../../services/products.service";
 import {Product} from "../../model/product.model";
 import {catchError, map, Observable, of, startWith} from "rxjs";
 import {AppDataState, DataStateEnum} from "../state/product.state";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-products',
@@ -13,7 +14,7 @@ export class ProductsComponent implements OnInit {
 
   products$ : Observable<AppDataState<Product[]>> | null = null
 
-  constructor(private productsService : ProductsService) { }
+  constructor(private productsService : ProductsService , private router : Router) { }
 
   ngOnInit(): void {
   }
@@ -51,23 +52,32 @@ export class ProductsComponent implements OnInit {
     );
   }
 
-  onNewProduct() {
-
-  }
 
   protected readonly DataStateEnum = DataStateEnum;
 
   onSelect(p: Product) {
-
+    this.productsService.select(p)
+      .subscribe(data=>{
+        p.selected=data.selected;
+      })
   }
 
   onDelete(p: Product) {
-
+    let v=confirm("Etes vous sûre?");
+    if(v==true)
+      this.productsService.deleteProduct(p)
+        .subscribe(data=>{
+          this.onGetAllProducts();
+        })
   }
 
-  onEdit(p: Product) {
-
+  onNewProduct() {
+    this.router.navigateByUrl("/newProduct");
   }
+
+  /*onEdit(p: Product) {
+    this.router.navigateByUrl("/editProduct/"+p.id);
+  }*/
 
   onSearch(dataForm: any) {
     this.products$= this.productsService.searchProducts(dataForm.keyword).pipe(
