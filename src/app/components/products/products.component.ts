@@ -75,9 +75,9 @@ export class ProductsComponent implements OnInit {
     this.router.navigateByUrl("/newProduct");
   }
 
-  /*onEdit(p: Product) {
+  onEdit(p: Product) {
     this.router.navigateByUrl("/editProduct/"+p.id);
-  }*/
+  }
 
   onSearch(dataForm: any) {
     this.products$= this.productsService.searchProducts(dataForm.keyword).pipe(

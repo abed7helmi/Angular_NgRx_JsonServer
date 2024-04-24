@@ -23,6 +23,9 @@ export class ProductsService{
   }
 
 
+
+
+
   getAvailableProducts() : Observable<Product[]>{
 
     let host = environment.host
