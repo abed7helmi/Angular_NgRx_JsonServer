@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ProductsService} from "../../services/products.service";
 import {Product} from "../../model/product.model";
 import {catchError, map, Observable, of, startWith} from "rxjs";
-import {AppDataState, DataStateEnum} from "../state/product.state";
+import {ActionEvent, AppDataState, DataStateEnum, ProductActionsTypes} from "../../state/product.state";
 import {Router} from "@angular/router";
 
 @Component({
@@ -88,5 +88,18 @@ export class ProductsComponent implements OnInit {
       startWith({dataState:DataStateEnum.LOADING}),
       catchError(err=>of({dataState:DataStateEnum.ERROR, errorMessage:err.message}))
     );
+  }
+
+  onActionEvent($event: ActionEvent) {
+    switch ($event.type) {
+      case ProductActionsTypes.GET_ALL_PRODUCTS: this.onGetAllProducts();break;
+      case ProductActionsTypes.GET_SELECTED_PRODUCTS: this.onGetSelectedProducts();break;
+      case ProductActionsTypes.GET_AVAILABLE_PRODUCTS: this.onGetAvailableProducts();break;
+      case ProductActionsTypes.SEARCH_PRODUCTS: this.onSearch($event.payload);break;
+      case ProductActionsTypes.NEW_PRODUCT: this.onNewProduct();break;
+      case ProductActionsTypes.SELECT_PRODUCT: this.onSelect($event.payload);break;
+      case ProductActionsTypes.DELETE_PRODUCT: this.onDelete($event.payload);break;
+      case ProductActionsTypes.EDIT_PRODUCT: this.onEdit($event.payload);break;
+    }
   }
 }
