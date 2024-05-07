@@ -2,7 +2,7 @@
   "products": [
     {
       "id": 1,
-      "name": "Computer2",
+      "name": "Computer3",
       "price": 60000,
       "quantity": 12,
       "selected": false,
@@ -10,11 +10,11 @@
     },
     {
       "id": 2,
-      "name": "Printer",
+      "name": "Printer2",
       "price": 1200,
       "quantity": 10,
       "selected": true,
-      "available": false
+      "available": true
     },
     {
       "id": 3,
