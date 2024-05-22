@@ -13,30 +13,15 @@
         <tr>
           <th>ID</th><th>Name</th><th>Price</th><th>Quantity</th><th>Selected</th><th>Available</th>
         </tr>
-        <tr *ngFor="let p of result.data">
-          <td>{{p.id}}</td>
-          <td>{{p.name}}</td>
-          <td>{{p.price}}</td>
-          <td>{{p.quantity}}</td>
-          <td>{{p.selected}}</td>
-          <td>{{p.available}}</td>
-          <td>
-            <button (click)="onSelect(p)" [ngClass]="p.selected?'btn-success':'btn-danger'" class="btn btn-sm">
-              <span *ngIf="p.selected">Unselect</span>
-              <span *ngIf="!p.selected">Select</span>
-            </button>
-          </td>
-          <td>
-            <button class="btn btn-danger" (click)="onDelete(p)">
-              <span class="fa fa-trash-o"></span>
-            </button>
-          </td>
-          <td>
-            <button class="btn btn-danger" (click)="onEdit(p)">
-              <span class="fa fa-edit"></span>
-            </button>
-          </td>
-        </tr>
+
+        <app-product-item [product] = "p"
+                          (eventEmitter)="onActionEvent($event)"
+                          *ngFor="let p of result.data"
+                          style="display: contents">
+
+        </app-product-item>
+<!--        // style="display: contents" pour regler prbl m affichage -->
+
       </table>
     </ng-container>
   </ng-container>
