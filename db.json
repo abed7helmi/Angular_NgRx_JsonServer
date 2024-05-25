@@ -1,16 +1,8 @@
 {
   "products": [
     {
-      "id": 2,
-      "name": "Printer2",
-      "price": 1200,
-      "quantity": 10,
-      "selected": true,
-      "available": true
-    },
-    {
       "id": 3,
-      "name": "Smartphone",
+      "name": "Smartphone2",
       "price": 2000,
       "quantity": 32,
       "selected": true,
