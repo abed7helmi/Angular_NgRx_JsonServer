@@ -6,15 +6,23 @@
       "price": 2000,
       "quantity": 32,
       "selected": true,
-      "available": true
+      "available": false
     },
     {
+      "id": 4,
       "name": "Souris",
       "price": "600",
       "quantity": "50",
       "selected": true,
+      "available": false
+    },
+    {
+      "name": "Test",
+      "price": "500",
+      "quantity": "300",
+      "selected": true,
       "available": true,
-      "id": 4
+      "id": 5
     }
   ]
 }
